@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option java_package = "ru.mephi.gprc.divkitpages";
+option java_multiple_files = true;
+
+message DivKitRequest {
+  string id = 1;
+}
+
+message DivKitResponse {
+  string id = 1;
+  string json = 2;
+}
+
+message DivKitCreateRequest {
+  string id = 1;
+  string json = 2;
+}
+
+message DivKitUpdateRequest {
+  string id = 1;
+  string json = 2;
+}
+
+message AllDivKitResponse {
+  repeated DivKitResponse div_kit_response = 1;
+}
+
+service DivKitService {
+
+  rpc GetDivKit(DivKitRequest) returns (DivKitResponse) {}
+
+  rpc GetAllDivKits(google.protobuf.Empty) returns (AllDivKitResponse) {}
+
+  rpc CreateDivKit(DivKitCreateRequest) returns (google.protobuf.Empty) {}
+
+  rpc UpdateDivKit(DivKitUpdateRequest) returns (google.protobuf.Empty) {}
+
+  rpc RemoveDivKit(DivKitRequest) returns (google.protobuf.Empty) {}
+}

@@ -1,0 +1,22 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://:${MONGO_PASSWORD}@
+      auto-index-creation: true
+  redis:
+    cluster:
+    password: ${REDIS_PASSWORD}
+    timeout: 300
+
+cache:
+  timeToLiveInSeconds: 600
+
+# Logging
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              ReactiveMongoTemplate: DEBUG
