@@ -8,42 +8,57 @@
     <artifactId>proto-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>proto-common</name>
-    <description>Common Project for Proto Model and Service Definitions</description>
+    <packaging>jar</packaging>
 
     <properties>
+        <io.grpc.version>1.40.1</io.grpc.version>
+        <protoc.version>3.4.0</protoc.version>
+        <os-maven-plugin.version>1.6.2</os-maven-plugin.version>
+        <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
+        <annotation-api.version>1.2</annotation-api.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <grpc.version>1.35.0</grpc.version>
-        <protoc.version>3.4.0</protoc.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty-shaded</artifactId>
-            <version>${grpc.version}</version>
+            <scope>runtime</scope>
+            <version>${io.grpc.version}</version>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-protobuf</artifactId>
-            <version>${grpc.version}</version>
+            <version>${io.grpc.version}</version>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-stub</artifactId>
-            <version>${grpc.version}</version>
+            <version>${io.grpc.version}</version>
         </dependency>
-        <dependency> <!-- necessary for Java 9+ -->
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>annotations-api</artifactId>
-            <version>6.0.53</version>
-            <scope>provided</scope>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-testing</artifactId>
+            <version>${io.grpc.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>${annotation-api.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-            <version>${protoc.version}</version>
+            <version>3.4.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.4.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -52,23 +67,24 @@
             <extension>
                 <groupId>kr.motd.maven</groupId>
                 <artifactId>os-maven-plugin</artifactId>
-                <version>1.5.0.Final</version>
+                <version>${os-maven-plugin.version}</version>
             </extension>
         </extensions>
         <plugins>
             <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.5.1</version>
-                <extensions>true</extensions>
+                <version>${protobuf-maven-plugin.version}</version>
                 <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:3.5.1:exe:osx-x86_64</protocArtifact>
+                    <protocArtifact>com.google.protobuf:protoc:${protoc.version}:exe:osx-x86_64</protocArtifact>
+                    <pluginId>grpc-java</pluginId>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${io.grpc.version}:exe:osx-x86_64</pluginArtifact>
                 </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>compile</goal>
-                            <goal>test-compile</goal>
+                            <goal>compile-custom</goal>
                         </goals>
                     </execution>
                 </executions>

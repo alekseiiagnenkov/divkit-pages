@@ -10,6 +10,7 @@ import ru.mephi.gprc.divkitpages.AllDivKitResponse;
 import ru.mephi.gprc.divkitpages.DivKitCreateRequest;
 import ru.mephi.gprc.divkitpages.DivKitRequest;
 import ru.mephi.gprc.divkitpages.DivKitResponse;
+import ru.mephi.gprc.divkitpages.DivKitServiceGrpc;
 import ru.mephi.gprc.divkitpages.DivKitUpdateRequest;
 
 @Service
